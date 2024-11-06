@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"], button {
+            padding: 5px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #e9ecef;
+        }
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    
+    <div class="back-button">
+        <a href="/loggedAdmin">
+            <button>Back to Admin</button>
+        </a>
+    </div>
+
+    <form action="/createTodo" method="post">
+        Task: <input type="text" name="task" required>
+        Description: <input type="text" name="description" required>
+        <input type="submit" value="Add Task">
+    </form>
+    
+    <div class="search-form">
+        <form action="/searchTodos" method="get">
+            Search: <input type="text" name="query" placeholder="Search tasks">
+            <select name="completed">
+                <option value="">All</option>
+                <option value="true">Completed</option>
+                <option value="false">Not Completed</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Completed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% todos.forEach(todo => { %>
+                <tr>
+                    <td><%= todo.task %></td>
+                    <td><%= todo.description %></td>
+                    <td>
+                        <form action="/updateTodo/<%= todo._id %>" method="post" style="display:inline;">
+                            <input type="checkbox" name="completed" <%= todo.completed ? 'checked' : '' %> onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/editTodo/<%= todo._id %>" method="get" style="display:inline;">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form action="/deleteTodo/<%= todo._id %>" method="post" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
