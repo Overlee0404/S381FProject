@@ -65,7 +65,7 @@ app.get('/todos', async (req, res) => {
     res.render('todos', { todos });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('error');
   }
 });
 
@@ -84,7 +84,7 @@ app.get('/editTodo/:id', async (req, res) => {
     res.render('editTodo', { todo });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('no response ');
   }
 });
 
@@ -98,7 +98,7 @@ app.post('/updateTodo/:id', async (req, res) => {
     res.redirect('/todos');
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('no response ');
   }
 });
 
@@ -108,27 +108,24 @@ app.post('/deleteTodo/:id', async (req, res) => {
     res.redirect('/todos');
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('no response error');
   }
 });
 
 app.get('/searchTodos', async (req, res) => {
+  const query = {};
+  if (req.query.query) query.task = new RegExp(req.query.query, 'i');
+  if (req.query.completed) query.completed = req.query.completed === 'true';
+
   try {
-    const query = {};
-    if (req.query.query) {
-      query.task = new RegExp(req.query.query, 'i');
-    }
-    if (req.query.completed) {
-      query.completed = req.query.completed === 'true';
-    }
     const todos = await ToDo.find(query);
     res.render('todos', { todos });
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
+    console.error("Cen't search error", err);
+    res.status(500).send('error');
   }
 });
 
 app.listen(8099, () => {
-  console.log('Server is running on port 8099');
+  console.log('Server is running  8099');
 });
