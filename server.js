@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('json spaces', 2);
 
 const SECRETKEY = 'I want to pass COMPS381F';
 
@@ -14,9 +15,12 @@ app.use(session({
 }));
 
 app.use(bodyParser.json());
+app.set('json spaces', 2); // Format JSON data with two spaces
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb+srv://<user>:<password>@cluster0.0902v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+//mongoose.connect('mongodb+srv://<user>:<password>@cluster0.0902v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://user:123@cluster0.tqlv0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
@@ -84,7 +88,7 @@ app.get('/editTodo/:id', async (req, res) => {
     res.render('editTodo', { todo });
   } catch (err) {
     console.error(err);
-    res.status(500).send('no response ');
+    res.status(500).send('no response');
   }
 });
 
@@ -98,7 +102,7 @@ app.post('/updateTodo/:id', async (req, res) => {
     res.redirect('/todos');
   } catch (err) {
     console.error(err);
-    res.status(500).send('no response ');
+    res.status(500).send('no response');
   }
 });
 
@@ -121,11 +125,75 @@ app.get('/searchTodos', async (req, res) => {
     const todos = await ToDo.find(query);
     res.render('todos', { todos });
   } catch (err) {
-    console.error("Cen't search error", err);
+    console.error("Can't search error", err);
     res.status(500).send('error');
   }
 });
 
-app.listen(8099, () => {
-  console.log('Server is running  8099');
+// Create (POST) API
+app.post('/api/todos', async (req, res) => {
+  try {
+    const newTodo = new ToDo({
+      task: req.body.task,
+      description: req.body.description,
+      completed: false
+    });
+    await newTodo.save();
+    res.status(201).json(newTodo); // Return created item
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unable to create task' });
+  }
 });
+
+// Read (GET) API
+app.get('/api/todos', async (req, res) => {
+  try {
+    const todos = await ToDo.find({});
+    res.json(todos); // Return all tasks
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unable to retrieve tasks' });
+  }
+});
+
+// Update (PUT) API
+app.put('/api/todos/:id', async (req, res) => {
+  try {
+    const updatedTodo = await ToDo.findByIdAndUpdate(
+      req.params.id,
+      {
+        task: req.body.task,
+        description: req.body.description,
+        completed: req.body.completed
+      },
+      { new: true } // Return updated document
+    );
+    if (!updatedTodo) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    res.json(updatedTodo); // Return updated item
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unable to update task' });
+  }
+});
+
+// Delete (DELETE) API
+app.delete('/api/todos/:id', async (req, res) => {
+  try {
+    const deletedTodo = await ToDo.findByIdAndDelete(req.params.id);
+    if (!deletedTodo) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    res.json({ message: 'Task deleted' }); // Return delete success message
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unable to delete task' });
+  }
+});
+
+app.listen(8099, () => {
+  console.log('Server is running on port 8099');
+});
+
