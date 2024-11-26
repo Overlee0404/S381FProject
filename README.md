@@ -1,10 +1,57 @@
-# S381FProject
-Group-53
-Lee Ho 13642360
-Lau Tsz Ho 12736759
-Chow Tsz Chung 13507463
-## RESTful API
+# S381FProject: Online ToDoTracker
 
+## Group Details
+**Group No:** 53  
+**Members:**  
+- **Lee Ho** (13642360)  
+- **Lau Tsz Ho** (12736759)  
+- **Chow Tsz Chung** (13507463)  
+
+---
+
+## Project Overview
+### Online ToDoTracker
+This is a cloud-based task management system with the following features:
+1. **User Authentication**  
+   - Handles login, logout, and session management using cookies.
+2. **CRUD Operations**  
+   - Enables users to create, read, update, and delete tasks.
+3. **MongoDB Integration**  
+   - Uses Mongoose to interact with a MongoDB database.
+
+### Project Structure
+#### **Main Files**
+- **`server.js`**  
+  - Sets up an Express server with the following functionalities:
+    - User authentication.
+    - CRUD operations for task management.
+    - MongoDB integration.
+
+#### **Folders**
+- **`public/`**  
+  - Contains static assets like stylesheets (for backup purposes).  
+- **`views/`**  
+  - Includes EJS templates for rendering the user interface.  
+- **`models/`**  
+  - Mongoose model files for `User` and `Item`, defining the database structure.
+
+---
+
+## Installation
+To install dependencies, run the following command:
+
+npm install express cookie-session mongoose
+
+## Cloud-Based Server
+- **`Base URL/`** 
+  - https://s381fproject-group53.onrender.com
+Admin Login:
+- **`Admin Login/`** 
+  - Username: admin
+  - Password: 123
+
+
+## RESTful API
 1. **Create a Task**
    - **Path**: `/api/todos`
    - **Method**: `POST`
@@ -41,13 +88,14 @@ Chow Tsz Chung 13507463
 Note: Replace [id] with the actual ID of the task, without brackets.
 ```
 # Create a task
-curl -X POST http://localhost:8099/api/todos -H "Content-Type: application/json" -d '{"task": "Learn API", "description": "Practice REST API", "completed": false}'
+curl -X POST "https://s381fproject-group53.onrender.com/api/todos" -H "Content-Type: application/json" -d "{\"task\": \"Learn API\", \"description\": \"Practice REST API\", \"completed\": false}"
 
 # Read all tasks
-curl -X GET http://localhost:8099/api/todos
+curl -X GET https://s381fproject-group53.onrender.com/api/todos
 
 # Update a specific task
-curl -X PUT http://localhost:8099/api/todos/[id] -H "Content-Type: application/json" -d '{"task": "Updated Task", "description": "Update description", "completed": true}'
+curl -X PUT "https://s381fproject-group53.onrender.com/api/todos/[id]" -H "Content-Type: application/json" -d "{\"task\": \"Updated Task\", \"description\": \"Update description\", \"completed\": true}"
 
 # Delete a specific task
-curl -X DELETE http://localhost:8099/api/todos/672e1ebabc0366c9d87d5901
+curl -X DELETE https://s381fproject-group53.onrender.com/api/todos/[id]
+
