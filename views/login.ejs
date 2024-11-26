@@ -134,12 +134,27 @@
     form .signup-link a:hover {
       text-decoration: underline;
     }
+
+    /* Style for the success popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <div class="title"><span>Login</span></div>
-    <form action="/login" method="post">
+    <form id="loginForm">
       <div class="row">
         <i class="fas fa-user"></i>
         <input type="text" name="name" placeholder="Username" required />
@@ -151,9 +166,35 @@
       <div class="row button">
         <input type="submit" value="Login" />
       </div>
-      <div class="signup-link"><a href="#"></a></div>
+      <div class="signup-link"><a href="#">Not a member? Sign up now</a></div>
     </form>
   </div>
+
+  <!-- Success Popup -->
+  <div id="successPopup" class="popup">
+    Login successful!
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();  // Prevent the form from submitting
+
+      // Simulate a successful login action (You can replace this with actual login logic)
+      var username = document.querySelector("input[name='name']").value;
+      var password = document.querySelector("input[name='password']").value;
+
+      if (username === "admin" && password === "password") {
+        // Show the success popup
+        document.getElementById("successPopup").style.display = "block";
+        
+        // Hide the popup after 3 seconds
+        setTimeout(function() {
+          document.getElementById("successPopup").style.display = "none";
+        }, 3000);
+      } else {
+        alert("Invalid username or password");
+      }
+    });
+  </script>
 </body>
 </html>
-
