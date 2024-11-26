@@ -20,24 +20,25 @@ This is a cloud-based task management system with the following features:
    - Uses Mongoose to interact with a MongoDB database.
 
 ### Project Structure
-#### **Main Files**
+#### **Files**
 - **`server.js`**  
   - Sets up an Express server with the following functionalities:
     - User authentication.
     - CRUD operations for task management.
     - MongoDB integration.
 
-#### **Folders**
-- **`public/`**  
-  - Contains static assets like stylesheets (for backup purposes).  
+- **`package.json`**  
+  - A Node.js application utilizing Express for server setup, EJS for view rendering.  
+      
 - **`views/`**  
-  - Includes EJS templates for rendering the user interface.  
+  - Includes EJS templates for rendering the user interface.
+
 ---
 
 ## Installation
-To install dependencies, run the following command:
+###**To install dependencies, run the following command:**
 
-npm install express cookie-session mongoose
+    - npm install express cookie-session mongoose
 
 ## Cloud-Based Server
 - **`Base URL/`** 
