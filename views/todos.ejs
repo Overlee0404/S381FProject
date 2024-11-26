@@ -246,6 +246,24 @@
             transform: translateY(-2px);
         }
 
+        .btn-logout {
+            background: var(--danger-color);
+            color: white;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+
     </style>
 </head>
 <body data-theme="light">
@@ -253,10 +271,19 @@
         <!-- Navigation Bar -->
         <nav class="navbar">
             <h1><i class="fas fa-tasks"></i> Todo List</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">
-                <i class="fas fa-moon"></i>
-            </button>
+            <div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <!-- Logout Button -->
+                <form action="/logout" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-logout">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </nav>
+
 
         <div class="main-content">
             <!-- Task Form -->
