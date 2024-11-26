@@ -82,7 +82,8 @@ This is a cloud-based task management system with the following features:
    - **Method**: `DELETE`
    - **Description**: Delete the task with the specified task ID
 
-### Testing Guide ###
+## Testing Guide ##
+![image](https://github.com/Overlee0404/S381FProject-group53/blob/main/TestResult.png)
 Note: Replace [id] with the actual ID of the task, without brackets.
 ```
 # Create a task
@@ -96,5 +97,3 @@ curl -X PUT "https://s381fproject-group53.onrender.com/api/todos/[id]" -H "Conte
 
 # Delete a specific task
 curl -X DELETE https://s381fproject-group53.onrender.com/api/todos/[id]
-
-
