@@ -64,15 +64,10 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  // Destroy the session or clear any authentication tokens
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Error destroying session:', err);
-      return res.status(500).send('Logout failed');
-    }
-    // Redirect to login.ejs
-    res.redirect('/login');
-  });
+    // Here you would typically clear the user's session or cookie
+    // req.session.destroy(); if you're using express-session
+    // res.clearCookie('cookieName'); if you're managing sessions through cookies
+    res.redirect('/login'); // Redirect to login page after logout
 });
 
 app.get('/todos', async (req, res) => {
