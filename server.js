@@ -63,6 +63,18 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
+app.post('/logout', (req, res) => {
+  // Destroy the session or clear any authentication tokens
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      return res.status(500).send('Logout failed');
+    }
+    // Redirect to login.ejs
+    res.redirect('/login');
+  });
+});
+
 app.get('/todos', async (req, res) => {
   try {
     const todos = await ToDo.find({});
