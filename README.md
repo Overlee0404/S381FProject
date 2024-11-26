@@ -32,9 +32,6 @@ This is a cloud-based task management system with the following features:
   - Contains static assets like stylesheets (for backup purposes).  
 - **`views/`**  
   - Includes EJS templates for rendering the user interface.  
-- **`models/`**  
-  - Mongoose model files for `User` and `Item`, defining the database structure.
-
 ---
 
 ## Installation
